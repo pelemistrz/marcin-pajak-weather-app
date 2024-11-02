@@ -55,11 +55,11 @@
       <Label layoutX="475.0" layoutY="470.0" text="description" />
       <Label layoutX="579.0" layoutY="452.0" text="temperature" />
       <Label layoutX="579.0" layoutY="470.0" text="description" />
-      <Label layoutX="58.0" layoutY="228.0" text="Label" />
-      <Label layoutX="58.0" layoutY="287.0" text="Label" />
-      <Label layoutX="52.0" layoutY="340.0" text="Label" />
-      <Label layoutX="52.0" layoutY="391.0" text="Label" />
-      <Label layoutX="58.0" layoutY="452.0" text="Label" />
+      <Label fx:id="todayLabel" layoutX="58.0" layoutY="228.0" />
+      <Label fx:id="todayPlus1" layoutX="58.0" layoutY="287.0" />
+      <Label fx:id="todayPlu2" layoutX="58.0" layoutY="340.0" />
+      <Label fx:id="todayPlus3" layoutX="60.0" layoutY="391.0" />
+      <Label fx:id="todayPlus4" layoutX="58.0" layoutY="433.0" />
       <Label layoutX="238.0" layoutY="51.0" prefHeight="26.0" prefWidth="66.0" text="Label" />
       <ChoiceBox fx:id="choiceBoxLocalCountry" layoutX="237.0" layoutY="109.0" prefWidth="150.0" />
       <ChoiceBox fx:id="choiceBoxDestinationCountry" layoutX="483.0" layoutY="109.0" prefWidth="150.0" />
