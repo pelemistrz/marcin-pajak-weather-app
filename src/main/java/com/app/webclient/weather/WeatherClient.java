@@ -1,6 +1,6 @@
 package com.app.webclient.weather;
 
-import com.app.model.WeatherDto;
+import com.app.model.WeatherInfo;
 import com.app.webclient.weather.dto.OpenWeatherDto;
 
 import java.net.URI;
@@ -13,7 +13,7 @@ public class WeatherClient {
     public static final String API_KEY = "4af1c105dcf10a54eab54afc6edd20eb";
     HttpClient client = HttpClient.newHttpClient();
 
-    public WeatherDto getWeatherForCity(String country, String city){
+    public WeatherInfo getWeatherForCity(String country, String city){
        OpenWeatherDto openWeatherDto;
 
         try {

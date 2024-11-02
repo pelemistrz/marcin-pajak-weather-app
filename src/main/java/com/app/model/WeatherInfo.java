@@ -1,6 +1,6 @@
 package com.app.model;
 
-public class WeatherDto {
+public class WeatherInfo {
     private String description;
     private float temperature;
 
@@ -12,24 +12,24 @@ public class WeatherDto {
         return temperature;
     }
 
-    private WeatherDto(WeatherDtoBuilder builder) {
+    private WeatherInfo(WeatherInfoBuilder builder) {
         this.description = builder.description;
         this.temperature = builder.temperature;
     }
 
-    public static class WeatherDtoBuilder {
+    public static class WeatherInfoBuilder {
         private String description;
         private float temperature;
-        public WeatherDtoBuilder description(String description) {
+        public WeatherInfoBuilder description(String description) {
             this.description = description;
             return this;
         }
-        public WeatherDtoBuilder temperature(float temperature) {
+        public WeatherInfoBuilder temperature(float temperature) {
             this.temperature = temperature;
             return this;
         }
-        public WeatherDto build() {
-            return new WeatherDto(this);
+        public WeatherInfo build() {
+            return new WeatherInfo(this);
         }
     }
 }
