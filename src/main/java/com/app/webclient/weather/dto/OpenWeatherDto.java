@@ -1,16 +1,31 @@
 package com.app.webclient.weather.dto;
 
+import java.util.List;
+
 public class OpenWeatherDto {
-    private OpenWeatherMainDto openWeatherMainDto;
-    private OpenWeatherWeatherDto openWeatherWeatherDto;
+    private OpenWeatherMainDto main;
+    private List<OpenWeatherWeatherDto> weather;
 
-    public OpenWeatherMainDto getOpenWeatherMainDto() {
-        return openWeatherMainDto;
+    public OpenWeatherMainDto getMain() {
+        return main;
+    }
+    public List<OpenWeatherWeatherDto> getWeather() {
+        return weather;
     }
 
-    public OpenWeatherWeatherDto getOpenWeatherWeatherDto() {
-        return openWeatherWeatherDto;
+    public void setMain(OpenWeatherMainDto main) {
+        this.main = main;
     }
 
+    public void setWeather(List<OpenWeatherWeatherDto> weather) {
+        this.weather = weather;
+    }
 
+    @Override
+    public String toString() {
+        return "OpenWeatherDto{" +
+                "openWeatherMainDto=" + main +
+//                ", openWeatherWeatherDto=" + openWeatherWeatherDto +
+                '}';
+    }
 }

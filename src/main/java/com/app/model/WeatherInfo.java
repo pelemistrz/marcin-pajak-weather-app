@@ -2,13 +2,13 @@ package com.app.model;
 
 public class WeatherInfo {
     private String description;
-    private float temperature;
+    private double temperature;
 
     public String getDescription() {
         return description;
     }
 
-    public float getTemperature() {
+    public double getTemperature() {
         return temperature;
     }
 
@@ -19,12 +19,13 @@ public class WeatherInfo {
 
     public static class WeatherInfoBuilder {
         private String description;
-        private float temperature;
+        private double temperature;
+
         public WeatherInfoBuilder description(String description) {
             this.description = description;
             return this;
         }
-        public WeatherInfoBuilder temperature(float temperature) {
+        public WeatherInfoBuilder temperature(double temperature) {
             this.temperature = temperature;
             return this;
         }

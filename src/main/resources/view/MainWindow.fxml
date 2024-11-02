@@ -13,8 +13,8 @@
         <Label layoutX="421.0" layoutY="113.0" text="Country" />
         <Label layoutX="159.0" layoutY="152.0" prefHeight="18.0" prefWidth="52.0" text="City" />
         <Label layoutX="422.0" layoutY="153.0" text="City" />
-        <TextField layoutX="238.0" layoutY="149.0" />
-        <TextField layoutX="484.0" layoutY="149.0" />
+        <TextField fx:id="localCity" layoutX="238.0" layoutY="149.0" />
+        <TextField fx:id="destinationCity" layoutX="484.0" layoutY="149.0" />
       <Label layoutX="209.0" layoutY="219.0" prefHeight="18.0" prefWidth="72.0" text="temperature" />
       <Label layoutX="208.0" layoutY="237.0" text="description" />
       <Label layoutX="327.0" layoutY="219.0" text="temperature" />

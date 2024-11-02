@@ -1,6 +1,8 @@
 package com.app.controller;
 
+import com.app.model.WeatherInfo;
 import com.app.services.LoadCsv;
+import com.app.services.WeatherService;
 import com.app.view.ViewFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -16,9 +19,12 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 public class MainWindowController extends BaseController implements Initializable {
-
+    private final WeatherService weatherService ;
     private ObservableList<String> countriesList = FXCollections.observableArrayList();
-
+    @FXML
+    private TextField destinationCity;
+    @FXML
+    private TextField localCity;
     @FXML
     private ChoiceBox<String> choiceBoxLocalCountry;
     @FXML
@@ -34,12 +40,15 @@ public class MainWindowController extends BaseController implements Initializabl
     @FXML
     private Label todayPlus4;
     @FXML
-    void checkBtn() {
-        return;
+
+     void checkBtn() {
+        WeatherInfo weatherInfo = weatherService.getTodayWeather("krakow","pl");
+
     }
 
     public MainWindowController(ViewFactory viewFactory, String fxmlName) {
         super(viewFactory,fxmlName);
+        this.weatherService = new WeatherService();
     }
 
     @Override
