@@ -2,6 +2,7 @@ package com.app.services;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,9 +12,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoadCsv {
+public enum LoadCsv {
+        INSTANCE;
 
-    private ObservableList<String> countriesList = FXCollections.observableArrayList();
+
+    private ObservableMap<String,String> countriesMap = FXCollections.observableHashMap();
 
     public void loadFromFile(String fileName) {
         Map<String,String> countries = new HashMap<>();
@@ -29,14 +32,12 @@ public class LoadCsv {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for(Map.Entry<String,String> entry : countries.entrySet()){
-            countriesList.add(entry.getKey());
-        }
+       countriesMap.putAll(countries);
     }
 
-    public ObservableList<String> getCountriesList() {
-        Collections.sort(countriesList);
-        return countriesList;
+    public ObservableMap<String,String> getCountriesMap() {
+
+        return countriesMap;
     }
 
 

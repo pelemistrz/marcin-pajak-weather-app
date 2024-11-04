@@ -6,62 +6,62 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="591.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="622.0" prefWidth="758.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Button layoutX="36.0" layoutY="38.0" mnemonicParsing="false" onAction="#checkBtn" prefHeight="43.0" prefWidth="134.0" text="Check weather" />
+        <Button layoutX="36.0" layoutY="38.0" mnemonicParsing="false" onAction="#checkBtn" prefHeight="43.0" prefWidth="134.0" text="Check weather" AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="38.0" />
         <Label layoutX="159.0" layoutY="112.0" prefHeight="18.0" prefWidth="52.0" text="Country" />
         <Label layoutX="421.0" layoutY="113.0" text="Country" />
         <Label layoutX="159.0" layoutY="152.0" prefHeight="18.0" prefWidth="52.0" text="City" />
         <Label layoutX="422.0" layoutY="153.0" text="City" />
         <TextField fx:id="localCity" layoutX="238.0" layoutY="149.0" />
         <TextField fx:id="destinationCity" layoutX="484.0" layoutY="149.0" />
-      <Label layoutX="209.0" layoutY="219.0" prefHeight="18.0" prefWidth="72.0" text="temperature" />
-      <Label layoutX="208.0" layoutY="237.0" text="description" />
-      <Label layoutX="327.0" layoutY="219.0" text="temperature" />
-      <Label layoutX="327.0" layoutY="246.0" text="description" />
-      <Label layoutX="472.0" layoutY="228.0" text="temperature" />
+      <Label layoutX="159.0" layoutY="218.0" prefHeight="18.0" prefWidth="72.0" text="temperature" />
+      <Label layoutX="156.0" layoutY="246.0" text="description" />
+      <Label fx:id="localTodayTemperature" layoutX="294.0" layoutY="218.0" />
+      <Label fx:id="localTodayDescription" layoutX="297.0" layoutY="246.0" />
+      <Label layoutX="473.0" layoutY="220.0" text="temperature" />
       <Label layoutX="475.0" layoutY="246.0" text="description" />
-      <Label layoutX="579.0" layoutY="228.0" text="temperature" />
-      <Label layoutX="579.0" layoutY="246.0" text="description" />
-      <Label layoutX="205.0" layoutY="278.0" prefHeight="18.0" prefWidth="66.0" text="temperature" />
-      <Label layoutX="208.0" layoutY="296.0" text="description" />
-      <Label layoutX="327.0" layoutY="278.0" text="temperature" />
-      <Label layoutX="327.0" layoutY="296.0" text="description" />
+      <Label layoutX="153.0" layoutY="278.0" prefHeight="18.0" prefWidth="66.0" text="temperature" />
+      <Label layoutX="153.0" layoutY="305.0" text="description" />
+      <Label fx:id="localForecastTemp1" layoutX="295.0" layoutY="279.0" text="temperature" />
+      <Label fx:id="localForecastDesc1" layoutX="298.0" layoutY="303.0" text="description" />
       <Label layoutX="472.0" layoutY="287.0" text="temperature" />
       <Label layoutX="475.0" layoutY="305.0" text="description" />
-      <Label layoutX="579.0" layoutY="287.0" text="temperature" />
-      <Label layoutX="579.0" layoutY="305.0" text="description" />
-      <Label layoutX="202.0" layoutY="330.0" prefHeight="18.0" prefWidth="72.0" text="temperature" />
-      <Label layoutX="208.0" layoutY="349.0" text="description" />
-      <Label layoutX="327.0" layoutY="331.0" text="temperature" />
-      <Label layoutX="327.0" layoutY="349.0" text="description" />
+      <Label fx:id="destinationForecastTemp1" layoutX="579.0" layoutY="287.0" text="temperature" />
+      <Label fx:id="destinationForecastDesc1" layoutX="579.0" layoutY="305.0" text="description" />
+      <Label layoutX="147.0" layoutY="331.0" prefHeight="18.0" prefWidth="72.0" text="temperature" />
+      <Label layoutX="153.0" layoutY="358.0" text="description" />
+      <Label fx:id="localForecastTemp2" layoutX="327.0" layoutY="331.0" text="temperature" />
+      <Label fx:id="localForecastDesc2" layoutX="327.0" layoutY="349.0" text="description" />
       <Label layoutX="472.0" layoutY="340.0" text="temperature" />
       <Label layoutX="475.0" layoutY="358.0" text="description" />
-      <Label layoutX="579.0" layoutY="340.0" text="temperature" />
-      <Label layoutX="579.0" layoutY="358.0" text="description" />
-      <Label layoutX="204.0" layoutY="381.0" prefHeight="18.0" prefWidth="66.0" text="temperature" />
-      <Label layoutX="208.0" layoutY="400.0" text="description" />
-      <Label layoutX="327.0" layoutY="382.0" text="temperature" />
-      <Label layoutX="327.0" layoutY="400.0" text="description" />
+      <Label fx:id="destinationForecastTemp2" layoutX="579.0" layoutY="340.0" text="temperature" />
+      <Label fx:id="destinationForecastDesc2" layoutX="579.0" layoutY="358.0" text="description" />
+      <Label layoutX="137.0" layoutY="382.0" prefHeight="18.0" prefWidth="66.0" text="temperature" />
+      <Label layoutX="141.0" layoutY="401.0" text="description" />
+      <Label fx:id="localForecastTemp3" layoutX="327.0" layoutY="382.0" text="temperature" />
+      <Label fx:id="localForecastDesc3" layoutX="327.0" layoutY="400.0" text="description" />
       <Label layoutX="472.0" layoutY="391.0" text="temperature" />
       <Label layoutX="475.0" layoutY="409.0" text="description" />
-      <Label layoutX="579.0" layoutY="391.0" text="temperature" />
-      <Label layoutX="506.0" layoutY="400.0" text="description" />
-      <Label layoutX="204.0" layoutY="442.0" prefHeight="18.0" prefWidth="66.0" text="temperature" />
-      <Label layoutX="208.0" layoutY="461.0" text="description" />
-      <Label layoutX="327.0" layoutY="443.0" text="temperature" />
-      <Label layoutX="327.0" layoutY="461.0" text="description" />
+      <Label fx:id="destinationForecastTemp3" layoutX="579.0" layoutY="391.0" text="temperature" />
+      <Label fx:id="destinationForecastDesc3" layoutX="579.0" layoutY="409.0" text="description" />
+      <Label layoutX="150.0" layoutY="434.0" prefHeight="18.0" prefWidth="66.0" text="temperature" />
+      <Label layoutX="147.0" layoutY="460.0" text="description" />
+      <Label fx:id="localForecastTemp4" layoutX="327.0" layoutY="443.0" text="temperature" />
+      <Label fx:id="localForecastDesc4" layoutX="327.0" layoutY="461.0" text="description" />
       <Label layoutX="472.0" layoutY="452.0" text="temperature" />
       <Label layoutX="475.0" layoutY="470.0" text="description" />
-      <Label layoutX="579.0" layoutY="452.0" text="temperature" />
-      <Label layoutX="579.0" layoutY="470.0" text="description" />
-      <Label fx:id="todayLabel" layoutX="58.0" layoutY="228.0" />
-      <Label fx:id="todayPlus1" layoutX="58.0" layoutY="287.0" />
-      <Label fx:id="todayPlu2" layoutX="58.0" layoutY="340.0" />
-      <Label fx:id="todayPlus3" layoutX="60.0" layoutY="391.0" />
-      <Label fx:id="todayPlus4" layoutX="58.0" layoutY="433.0" />
+      <Label fx:id="destinationForecastTemp4" layoutX="579.0" layoutY="452.0" text="temperature" />
+      <Label fx:id="destinationForecastDesc4" layoutX="583.0" layoutY="470.0" text="description" />
       <Label layoutX="238.0" layoutY="51.0" prefHeight="26.0" prefWidth="66.0" text="Label" />
       <ChoiceBox fx:id="choiceBoxLocalCountry" layoutX="237.0" layoutY="109.0" prefWidth="150.0" />
       <ChoiceBox fx:id="choiceBoxDestinationCountry" layoutX="483.0" layoutY="109.0" prefWidth="150.0" />
+      <Label fx:id="destinationTodayDescription" layoutX="567.0" layoutY="247.0" />
+      <Label fx:id="destinationTodayTemperature" layoutX="564.0" layoutY="218.0" />
+      <Label fx:id="todayLabel" layoutX="58.0" layoutY="227.0" text="today" />
+      <Label fx:id="todayPlus1" layoutX="58.0" layoutY="287.0" text="today" />
+      <Label fx:id="todayPlu2" layoutX="58.0" layoutY="340.0" text="today" />
+      <Label fx:id="todayPlus3" layoutX="58.0" layoutY="391.0" text="today" />
+      <Label fx:id="todayPlus4" layoutX="58.0" layoutY="451.0" text="today" />
     </children>
 </AnchorPane>

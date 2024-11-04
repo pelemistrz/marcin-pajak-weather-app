@@ -2,6 +2,7 @@ package com.app.webclient.weather;
 
 import com.app.model.WeatherInfo;
 import com.app.webclient.weather.dto.OpenWeatherDto;
+import com.app.webclient.weather.dto.OpenWeatherForecastDto;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -20,7 +21,6 @@ public class WeatherClient {
         HttpClient client = HttpClient.newHttpClient();
         Gson gson = new Gson();
        OpenWeatherDto openWeatherDto=null;
-        System.out.println("wchodze do try");
 
         try {
             HttpRequest request = HttpRequest.newBuilder()
@@ -43,7 +43,31 @@ public class WeatherClient {
         return null;
     }
 
-    public WeatherInfo getForecastForCity(String country,String city){
+    public OpenWeatherForecastDto getForecastForCity(String city,String country){
+        HttpClient client = HttpClient.newHttpClient();
+        Gson gson = new Gson();
+        OpenWeatherForecastDto openWeatherForecastDto=null;
+
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI("http://api.openweathermap.org/data/2.5/forecast?q="+city+","+country+"&appid="+API_KEY+"&units=metric&lang=pl"))
+                    .GET()
+                    .build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+//            System.out.println(response.body());
+            openWeatherForecastDto = gson.fromJson(response.body(),OpenWeatherForecastDto.class);
+            System.out.println(openWeatherForecastDto.toString());
+            System.out.println(openWeatherForecastDto.getList().size());
+            return openWeatherForecastDto;
+
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        catch(InterruptedException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

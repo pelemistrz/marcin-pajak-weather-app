@@ -3,6 +3,7 @@ package com.app.webclient.weather.dto;
 import java.util.List;
 
 public class OpenWeatherDto {
+    private Integer dt;
     private OpenWeatherMainDto main;
     private List<OpenWeatherWeatherDto> weather;
 
@@ -21,11 +22,20 @@ public class OpenWeatherDto {
         this.weather = weather;
     }
 
+    public Integer getDt() {
+        return dt;
+    }
+
+    public void setDt(Integer dt) {
+        this.dt = dt;
+    }
+
     @Override
     public String toString() {
         return "OpenWeatherDto{" +
-                "openWeatherMainDto=" + main +
-//                ", openWeatherWeatherDto=" + openWeatherWeatherDto +
+                "dt=" + dt +
+                ", main=" + main +
+                ", weather=" + weather +
                 '}';
     }
 }
