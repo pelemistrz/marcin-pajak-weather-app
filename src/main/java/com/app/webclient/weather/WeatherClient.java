@@ -1,11 +1,13 @@
 package com.app.webclient.weather;
 
+import com.app.errors.CityNotFound;
 import com.app.model.WeatherInfo;
 import com.app.webclient.weather.dto.OpenWeatherDto;
 import com.app.webclient.weather.dto.OpenWeatherForecastDto;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
@@ -43,7 +45,7 @@ public class WeatherClient {
         return null;
     }
 
-    public OpenWeatherForecastDto getForecastForCity(String city,String country){
+    public OpenWeatherForecastDto getForecastForCity(String city,String country) throws CityNotFound {
         HttpClient client = HttpClient.newHttpClient();
         Gson gson = new Gson();
         OpenWeatherForecastDto openWeatherForecastDto=null;
@@ -54,7 +56,11 @@ public class WeatherClient {
                     .GET()
                     .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//            System.out.println(response.body());
+            if(response.body().contains("city not found")){
+                throw new CityNotFound("City not found");
+            }
+            System.out.println(response.headers());
+
             openWeatherForecastDto = gson.fromJson(response.body(),OpenWeatherForecastDto.class);
             System.out.println(openWeatherForecastDto.toString());
             System.out.println(openWeatherForecastDto.getList().size());

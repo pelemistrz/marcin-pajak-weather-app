@@ -1,5 +1,6 @@
 package com.app.services;
 
+import com.app.errors.CityNotFound;
 import com.app.model.ForecastInfo;
 import com.app.model.WeatherInfo;
 import com.app.webclient.weather.WeatherClient;
@@ -14,6 +15,9 @@ public class WeatherService extends Service {
 
     public WeatherInfo getTodayWeather(String city,String country){
         OpenWeatherDto openWeatherDto = weatherClient.getWeatherForCity(city,country);
+        if(openWeatherDto == null){
+            return null;
+        }
         return new WeatherInfo.WeatherInfoBuilder()
                 .temperature(openWeatherDto.getMain().getTemp())
                 .description(openWeatherDto.getWeather().get(0).getDescription())
@@ -21,8 +25,9 @@ public class WeatherService extends Service {
 
     }
 
-    public ForecastInfo getForecast(String city,String country){
+    public ForecastInfo getForecast(String city,String country) throws CityNotFound {
         OpenWeatherForecastDto openWeatherForecastDto = weatherClient.getForecastForCity(city,country);
+
         ForecastInfo forecastInfo = new ForecastInfo();
 
         for(int i = 0;i<25;i=i+8){

@@ -1,5 +1,6 @@
 package com.app.controller;
 
+import com.app.errors.CityNotFound;
 import com.app.model.ForecastInfo;
 import com.app.model.WeatherInfo;
 import com.app.services.LoadCsv;
@@ -115,8 +116,20 @@ public class MainWindowController extends BaseController implements Initializabl
         destinationTodayTemperature.setText(weatherInfoDestination.getTemperature() + " C");
         destinationTodayDescription.setText(weatherInfoDestination.getDescription());
 
-        ForecastInfo forecastInfoLocal = weatherService.getForecast(localCity,localCountry);
-        ForecastInfo forecastInfoDestination = weatherService.getForecast(destinationCity,destinationCountry);
+        ForecastInfo forecastInfoLocal = null;
+        try {
+            forecastInfoLocal = weatherService.getForecast(localCity,localCountry);
+        } catch (CityNotFound e) {
+           e.printStackTrace();
+
+        }
+
+        ForecastInfo forecastInfoDestination = null;
+        try {
+            forecastInfoDestination = weatherService.getForecast(destinationCity,destinationCountry);
+        } catch (CityNotFound e) {
+            e.printStackTrace();
+        }
         //local forecast temp
         localForecastTemp1.setText(forecastInfoLocal.getForecastList().get(0).getTemperature()+" C");
         localForecastTemp2.setText(forecastInfoLocal.getForecastList().get(1).getTemperature()+" C");
