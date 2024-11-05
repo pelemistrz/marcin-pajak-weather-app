@@ -14,7 +14,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -97,11 +96,15 @@ public class MainWindowController extends BaseController implements Initializabl
     @FXML
     private Label errorLocalCity;
 
+    private Label[] localForecastaLabelsTemp = {localForecastTemp1, localForecastTemp2, localForecastTemp3, localForecastTemp4};
+    private Label[] localForecastaLabelsDesc = {localForecastDesc1, localForecastDesc2, localForecastDesc3, localForecastDesc4};
+
+    private Label[] destinationForecastLabelTemp = {destinationForecastTemp1, destinationForecastTemp2, destinationForecastTemp3, destinationForecastTemp4};
+    private Label[] destinationForecastLabelDescrip = {destinationForecastDesc1, destinationForecastDesc2, destinationForecastDesc3, destinationForecastDesc4};
 
     public MainWindowController(ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
         this.weatherService = new WeatherService();
-
     }
 
     @FXML
@@ -121,7 +124,6 @@ public class MainWindowController extends BaseController implements Initializabl
         try {
             weatherInfoLocal = weatherService.getTodayWeather(locCity, localCountry);
         } catch (CityNotFound e) {
-            System.out.println("city not found");
             errorLocalCity.setText("City not found");
         }
 
@@ -148,12 +150,6 @@ public class MainWindowController extends BaseController implements Initializabl
             destinationTodayTemperature.setText(weatherInfoDestination.getTemperature() + " C");
             destinationTodayDescription.setText(weatherInfoDestination.getDescription());
         }
-
-        Label[] localForecastaLabelsTemp = {localForecastTemp1, localForecastTemp2, localForecastTemp3, localForecastTemp4};
-        Label[] localForecastaLabelsDesc = {localForecastDesc1, localForecastDesc2, localForecastDesc3, localForecastDesc4};
-
-        Label[] destinationForecastLabelTemp = {destinationForecastTemp1, destinationForecastTemp2, destinationForecastTemp3, destinationForecastTemp4};
-        Label[] destinationForecastLabelDescrip = {destinationForecastDesc1, destinationForecastDesc2, destinationForecastDesc3, destinationForecastDesc4};
 
         ForecastInfo forecastInfoLocal = null;
 
