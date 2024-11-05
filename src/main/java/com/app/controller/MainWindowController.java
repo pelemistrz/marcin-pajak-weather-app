@@ -21,7 +21,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
-
 public class MainWindowController extends BaseController implements Initializable {
     private final WeatherService weatherService;
 
@@ -99,8 +98,6 @@ public class MainWindowController extends BaseController implements Initializabl
     private Label errorLocalCity;
 
 
-
-
     public MainWindowController(ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
         this.weatherService = new WeatherService();
@@ -120,13 +117,14 @@ public class MainWindowController extends BaseController implements Initializabl
         errorLocalCity.setText("");
         errorDestinationCity.setText("");
 
-                WeatherInfo weatherInfoLocal = null;
+        WeatherInfo weatherInfoLocal = null;
         try {
             weatherInfoLocal = weatherService.getTodayWeather(locCity, localCountry);
         } catch (CityNotFound e) {
             System.out.println("city not found");
             errorLocalCity.setText("City not found");
         }
+
         WeatherInfo weatherInfoDestination = null;
         try {
             weatherInfoDestination = weatherService.getTodayWeather(destCity, destinationCountry);
@@ -134,15 +132,16 @@ public class MainWindowController extends BaseController implements Initializabl
             System.out.println("city not found");
             errorDestinationCity.setText("City not found");
         }
-        if(weatherInfoLocal==null){
+
+        if (weatherInfoLocal == null) {
             localTodayDescription.setText("");
             localTodayTemperature.setText("");
-
-        }else{
+        } else {
             localTodayDescription.setText(weatherInfoLocal.getDescription());
             localTodayTemperature.setText(weatherInfoLocal.getTemperature() + " C");
         }
-        if(weatherInfoDestination==null){
+
+        if (weatherInfoDestination == null) {
             destinationTodayTemperature.setText("");
             destinationTodayDescription.setText("");
         } else {
@@ -150,15 +149,11 @@ public class MainWindowController extends BaseController implements Initializabl
             destinationTodayDescription.setText(weatherInfoDestination.getDescription());
         }
 
-        Label[] localForecastaLabelsTemp = {localForecastTemp1,localForecastTemp2,localForecastTemp3,localForecastTemp4};
-        Label[] localForecastaLabelsDesc = {localForecastDesc1,localForecastDesc2,localForecastDesc3,localForecastDesc4};
+        Label[] localForecastaLabelsTemp = {localForecastTemp1, localForecastTemp2, localForecastTemp3, localForecastTemp4};
+        Label[] localForecastaLabelsDesc = {localForecastDesc1, localForecastDesc2, localForecastDesc3, localForecastDesc4};
 
-
-        Label[] destinationForecastLabelTemp = {destinationForecastTemp1,destinationForecastTemp2,destinationForecastTemp3,destinationForecastTemp4};
-        Label[] destinationForecastLabelDescrip =  {destinationForecastDesc1,destinationForecastDesc2,destinationForecastDesc3,destinationForecastDesc4};
-
-
-
+        Label[] destinationForecastLabelTemp = {destinationForecastTemp1, destinationForecastTemp2, destinationForecastTemp3, destinationForecastTemp4};
+        Label[] destinationForecastLabelDescrip = {destinationForecastDesc1, destinationForecastDesc2, destinationForecastDesc3, destinationForecastDesc4};
 
         ForecastInfo forecastInfoLocal = null;
 
@@ -176,49 +171,39 @@ public class MainWindowController extends BaseController implements Initializabl
         }
 
         if (forecastInfoLocal == null) {
-       setNothing(localForecastaLabelsTemp);
-            //local forecast description
-         setNothing(localForecastaLabelsDesc);
-
+            setNothing(localForecastaLabelsTemp);
+            setNothing(localForecastaLabelsDesc);
         } else {
-            //local forecast description
-            setTempOnLabel(localForecastaLabelsTemp,forecastInfoLocal);
-
-            //destination forecast temp
-            setDescriptionOnLabel(localForecastaLabelsDesc,forecastInfoLocal);
+            setTempOnLabel(localForecastaLabelsTemp, forecastInfoLocal);
+            setDescriptionOnLabel(localForecastaLabelsDesc, forecastInfoLocal);
         }
 
-        if(forecastInfoDestination==null){
-        setNothing(destinationForecastLabelTemp);
-            //destination forecast temp
-           setNothing(destinationForecastLabelDescrip);
-
-        }else {
-          setTempOnLabel(destinationForecastLabelTemp,forecastInfoDestination);
-            //destination forecast temp
-
-            setDescriptionOnLabel(destinationForecastLabelDescrip,forecastInfoDestination);
+        if (forecastInfoDestination == null) {
+            setNothing(destinationForecastLabelTemp);
+            setNothing(destinationForecastLabelDescrip);
+        } else {
+            setTempOnLabel(destinationForecastLabelTemp, forecastInfoDestination);
+            setDescriptionOnLabel(destinationForecastLabelDescrip, forecastInfoDestination);
         }
     }
 
-    private void setTempOnLabel(Label[] labels,ForecastInfo forecast ){
-        for(int i=0;i<labels.length;i++){
-            labels[i].setText(forecast.getForecastList().get(i).getTemperature()+ " C");
+    private void setTempOnLabel(Label[] labels, ForecastInfo forecast) {
+        for (int i = 0; i < labels.length; i++) {
+            labels[i].setText(forecast.getForecastList().get(i).getTemperature() + " C");
         }
     }
 
-    private void setDescriptionOnLabel(Label[] labels,ForecastInfo forecast ){
-        for(int i=0;i<labels.length;i++){
+    private void setDescriptionOnLabel(Label[] labels, ForecastInfo forecast) {
+        for (int i = 0; i < labels.length; i++) {
             labels[i].setText(forecast.getForecastList().get(i).getDescription());
         }
     }
 
-    private void setNothing(Label[] labels){
-        for(int i=0;i<labels.length;i++){
+    private void setNothing(Label[] labels) {
+        for (int i = 0; i < labels.length; i++) {
             labels[i].setText("");
         }
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -239,6 +224,5 @@ public class MainWindowController extends BaseController implements Initializabl
         todayPlu2.setText(date.plusDays(2).format(formatter));
         todayPlus3.setText(date.plusDays(3).format(formatter));
         todayPlus4.setText(date.plusDays(4).format(formatter));
-
     }
 }

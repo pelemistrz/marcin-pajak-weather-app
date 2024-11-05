@@ -13,5 +13,4 @@ public class ForecastInfo {
         forecastList.add(weatherInfo);
     }
 
-
 }

@@ -6,15 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class ViewFactory {
-
     public void showMainWindow(){
         BaseController controller = new MainWindowController(this,"/view/MainWindow.fxml");
         initializeStage(controller);
-
     }
 
     private void initializeStage(BaseController controller) {

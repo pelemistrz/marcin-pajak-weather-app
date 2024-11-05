@@ -1,5 +1,6 @@
 package com.app.webclient.weather;
 
+import com.app.config.Config;
 import com.app.errors.CityNotFound;
 import com.app.model.WeatherInfo;
 import com.app.webclient.weather.dto.OpenWeatherDto;
@@ -18,7 +19,6 @@ import java.nio.charset.StandardCharsets;
 
 public class WeatherClient {
     private static final String WEATHER_URL = "http://api.openweathermap.org/data/2.5";
-    public static final String API_KEY = "4af1c105dcf10a54eab54afc6edd20eb";
 
 
     public OpenWeatherDto getWeatherForCity( String city,String country) throws CityNotFound{
@@ -28,20 +28,17 @@ public class WeatherClient {
 
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI("http://api.openweathermap.org/data/2.5/weather?q="+URLEncoder.encode(city, StandardCharsets.UTF_8)+","+country+"&appid="+API_KEY+"&units=metric&lang=pl"))
+                    .uri(new URI("http://api.openweathermap.org/data/2.5/weather?q="+URLEncoder.encode(city, StandardCharsets.UTF_8)+","+country+"&appid="+ Config.API_KEY +"&units=metric&lang=pl"))
                     .GET()
                     .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             if(response.statusCode()==404){
                 throw new CityNotFound("City not found");
-
             } else {
                 openWeatherDto = gson.fromJson(response.body(),OpenWeatherDto.class);
                 return openWeatherDto;
-
             }
-
         } catch (URISyntaxException e) {
             System.out.println("uri");
         } catch(IOException e) {
@@ -57,30 +54,20 @@ public class WeatherClient {
         HttpClient client = HttpClient.newHttpClient();
         Gson gson = new Gson();
         OpenWeatherForecastDto openWeatherForecastDto=null;
-        System.out.println(city);
 
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI("http://api.openweathermap.org/data/2.5/forecast?q="+ URLEncoder.encode(city, StandardCharsets.UTF_8)+","+country+"&appid="+API_KEY+"&units=metric&lang=pl"))
+                    .uri(new URI("http://api.openweathermap.org/data/2.5/forecast?q="+ URLEncoder.encode(city, StandardCharsets.UTF_8)+","+country+"&appid="+Config.API_KEY+"&units=metric&lang=pl"))
                     .GET()
                     .build();
-
-            System.out.println(request.uri());
-
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-
-
 
             if(response.statusCode()==404){
                 throw new CityNotFound("City not found");
-
             } else{
                 openWeatherForecastDto = gson.fromJson(response.body(),OpenWeatherForecastDto.class);
-
                 return openWeatherForecastDto;
             }
-
         } catch (URISyntaxException e) {
             System.out.println("Uri syntax error");
         } catch(IOException e) {
@@ -91,7 +78,4 @@ public class WeatherClient {
         }
         return null;
     }
-
-
-
 }
