@@ -18,9 +18,9 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.Date;
-import java.util.ResourceBundle;
+import java.util.*;
+
+
 
 public class MainWindowController extends BaseController implements Initializable {
     private final WeatherService weatherService;
@@ -99,9 +99,12 @@ public class MainWindowController extends BaseController implements Initializabl
     private Label errorLocalCity;
 
 
+
+
     public MainWindowController(ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
         this.weatherService = new WeatherService();
+
     }
 
     @FXML
@@ -111,16 +114,13 @@ public class MainWindowController extends BaseController implements Initializabl
         String destCity = this.destinationCity.getText();
         String locCity = this.localCity.getText();
 
-        System.out.println(destCity);
-        System.out.println(locCity);
-
         String localCountry = countriesMap.get(choiceBoxLocalCountry.getValue());
         String destinationCountry = countriesMap.get(choiceBoxDestinationCountry.getValue());
 
         errorLocalCity.setText("");
         errorDestinationCity.setText("");
 
-        WeatherInfo weatherInfoLocal = null;
+                WeatherInfo weatherInfoLocal = null;
         try {
             weatherInfoLocal = weatherService.getTodayWeather(locCity, localCountry);
         } catch (CityNotFound e) {
@@ -134,7 +134,6 @@ public class MainWindowController extends BaseController implements Initializabl
             System.out.println("city not found");
             errorDestinationCity.setText("City not found");
         }
-
         if(weatherInfoLocal==null){
             localTodayDescription.setText("");
             localTodayTemperature.setText("");
@@ -142,7 +141,6 @@ public class MainWindowController extends BaseController implements Initializabl
         }else{
             localTodayDescription.setText(weatherInfoLocal.getDescription());
             localTodayTemperature.setText(weatherInfoLocal.getTemperature() + " C");
-
         }
         if(weatherInfoDestination==null){
             destinationTodayTemperature.setText("");
@@ -152,75 +150,73 @@ public class MainWindowController extends BaseController implements Initializabl
             destinationTodayDescription.setText(weatherInfoDestination.getDescription());
         }
 
+        Label[] localForecastaLabelsTemp = {localForecastTemp1,localForecastTemp2,localForecastTemp3,localForecastTemp4};
+        Label[] localForecastaLabelsDesc = {localForecastDesc1,localForecastDesc2,localForecastDesc3,localForecastDesc4};
+
+
+        Label[] destinationForecastLabelTemp = {destinationForecastTemp1,destinationForecastTemp2,destinationForecastTemp3,destinationForecastTemp4};
+        Label[] destinationForecastLabelDescrip =  {destinationForecastDesc1,destinationForecastDesc2,destinationForecastDesc3,destinationForecastDesc4};
+
+
+
+
         ForecastInfo forecastInfoLocal = null;
 
         try {
             forecastInfoLocal = weatherService.getForecast(locCity, localCountry);
         } catch (CityNotFound e) {
-            System.out.println("city not found");
-
             errorLocalCity.setText("City not found");
-
         }
 
         ForecastInfo forecastInfoDestination = null;
         try {
             forecastInfoDestination = weatherService.getForecast(destCity, destinationCountry);
         } catch (CityNotFound e) {
-            System.out.println("city not found");
-
             errorDestinationCity.setText("City not found");
         }
-        if (forecastInfoLocal == null) {
-            localForecastTemp1.setText("");
-            localForecastTemp2.setText("");
-            localForecastTemp3.setText("");
-            localForecastTemp4.setText("");
-            //local forecast description
-            localForecastDesc1.setText("");
-            localForecastDesc2.setText("");
-            localForecastDesc3.setText("");
-            localForecastDesc4.setText("");
 
+        if (forecastInfoLocal == null) {
+       setNothing(localForecastaLabelsTemp);
+            //local forecast description
+         setNothing(localForecastaLabelsDesc);
 
         } else {
-            localForecastTemp1.setText(forecastInfoLocal.getForecastList().get(0).getTemperature() + " C");
-            localForecastTemp2.setText(forecastInfoLocal.getForecastList().get(1).getTemperature() + " C");
-            localForecastTemp3.setText(forecastInfoLocal.getForecastList().get(2).getTemperature() + " C");
-            localForecastTemp4.setText(forecastInfoLocal.getForecastList().get(3).getTemperature() + " C");
             //local forecast description
-            localForecastDesc1.setText(forecastInfoLocal.getForecastList().get(0).getDescription());
-            localForecastDesc2.setText(forecastInfoLocal.getForecastList().get(1).getDescription());
-            localForecastDesc3.setText(forecastInfoLocal.getForecastList().get(2).getDescription());
-            localForecastDesc4.setText(forecastInfoLocal.getForecastList().get(3).getDescription());
+            setTempOnLabel(localForecastaLabelsTemp,forecastInfoLocal);
+
             //destination forecast temp
+            setDescriptionOnLabel(localForecastaLabelsDesc,forecastInfoLocal);
         }
 
         if(forecastInfoDestination==null){
-            destinationForecastTemp1.setText("");
-            destinationForecastTemp2.setText("");
-            destinationForecastTemp3.setText("");
-            destinationForecastTemp4.setText("");
+        setNothing(destinationForecastLabelTemp);
             //destination forecast temp
-            destinationForecastDesc1.setText("");
-            destinationForecastDesc2.setText("");
-            destinationForecastDesc3.setText("");
-            destinationForecastDesc4.setText("");
+           setNothing(destinationForecastLabelDescrip);
 
         }else {
-            destinationForecastTemp1.setText(forecastInfoDestination.getForecastList().get(0).getTemperature() + " C");
-            destinationForecastTemp2.setText(forecastInfoDestination.getForecastList().get(1).getTemperature() + " C");
-            destinationForecastTemp3.setText(forecastInfoDestination.getForecastList().get(2).getTemperature() + " C");
-            destinationForecastTemp4.setText(forecastInfoDestination.getForecastList().get(3).getTemperature() + " C");
+          setTempOnLabel(destinationForecastLabelTemp,forecastInfoDestination);
             //destination forecast temp
-            destinationForecastDesc1.setText(forecastInfoDestination.getForecastList().get(0).getDescription());
-            destinationForecastDesc2.setText(forecastInfoDestination.getForecastList().get(1).getDescription());
-            destinationForecastDesc3.setText(forecastInfoDestination.getForecastList().get(2).getDescription());
-            destinationForecastDesc4.setText(forecastInfoDestination.getForecastList().get(3).getDescription());
+
+            setDescriptionOnLabel(destinationForecastLabelDescrip,forecastInfoDestination);
         }
+    }
 
+    private void setTempOnLabel(Label[] labels,ForecastInfo forecast ){
+        for(int i=0;i<labels.length;i++){
+            labels[i].setText(forecast.getForecastList().get(i).getTemperature()+ " C");
+        }
+    }
 
+    private void setDescriptionOnLabel(Label[] labels,ForecastInfo forecast ){
+        for(int i=0;i<labels.length;i++){
+            labels[i].setText(forecast.getForecastList().get(i).getDescription());
+        }
+    }
 
+    private void setNothing(Label[] labels){
+        for(int i=0;i<labels.length;i++){
+            labels[i].setText("");
+        }
     }
 
 
