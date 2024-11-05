@@ -14,8 +14,6 @@ import java.util.Map;
 
 public enum LoadCsv {
         INSTANCE;
-
-
     private ObservableMap<String,String> countriesMap = FXCollections.observableHashMap();
 
     public void loadFromFile(String fileName) {
@@ -36,7 +34,6 @@ public enum LoadCsv {
     }
 
     public ObservableMap<String,String> getCountriesMap() {
-
         return countriesMap;
     }
 

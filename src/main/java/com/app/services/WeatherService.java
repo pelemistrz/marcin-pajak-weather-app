@@ -15,8 +15,6 @@ public class WeatherService extends Service {
 
     public WeatherInfo getTodayWeather(String city,String country) throws CityNotFound {
 
-
-
         OpenWeatherDto openWeatherDto = weatherClient.getWeatherForCity(city,country);
         if(openWeatherDto == null){
             throw new CityNotFound("City not found");
@@ -25,12 +23,10 @@ public class WeatherService extends Service {
                 .temperature(openWeatherDto.getMain().getTemp())
                 .description(openWeatherDto.getWeather().get(0).getDescription())
                 .build();
-
     }
 
     public ForecastInfo getForecast(String city,String country) throws CityNotFound {
         OpenWeatherForecastDto openWeatherForecastDto = weatherClient.getForecastForCity(city,country);
-
 
         if(openWeatherForecastDto==null){
             throw new CityNotFound("City not found");
@@ -47,9 +43,6 @@ public class WeatherService extends Service {
         }
         return forecastInfo;
     }
-
-
-
 
     @Override
     protected Task createTask() {

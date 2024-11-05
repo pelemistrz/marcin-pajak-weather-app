@@ -19,11 +19,12 @@ import java.nio.charset.StandardCharsets;
 
 public class WeatherClient {
     private static final String WEATHER_URL = "http://api.openweathermap.org/data/2.5";
+    private Gson gson = new Gson();
 
     public OpenWeatherDto getWeatherForCity( String city,String country) throws CityNotFound{
         HttpClient client = HttpClient.newHttpClient();
-        Gson gson = new Gson();
-       OpenWeatherDto openWeatherDto=null;
+        OpenWeatherDto openWeatherDto=null;
+        city = city.trim();
 
         try {
             HttpRequest request = HttpRequest.newBuilder()
@@ -39,21 +40,20 @@ public class WeatherClient {
                 return openWeatherDto;
             }
         } catch (URISyntaxException e) {
-            System.out.println("uri");
+            System.out.println("Uri exception");
         } catch(IOException e) {
-            System.out.println("ioexceptio");
+            System.out.println("IOException");
         }
         catch(InterruptedException e) {
-            System.out.println("interrupted");
+            System.out.println("InterruptedException");
         }
         return null;
     }
 
     public OpenWeatherForecastDto getForecastForCity(String city,String country) throws CityNotFound {
         HttpClient client = HttpClient.newHttpClient();
-        Gson gson = new Gson();
         OpenWeatherForecastDto openWeatherForecastDto=null;
-
+        city=city.trim();
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI("http://api.openweathermap.org/data/2.5/forecast?q="+ URLEncoder.encode(city, StandardCharsets.UTF_8)+","+country+"&appid="+Config.API_KEY+"&units=metric&lang=pl"))
@@ -68,12 +68,13 @@ public class WeatherClient {
                 return openWeatherForecastDto;
             }
         } catch (URISyntaxException e) {
-            System.out.println("Uri syntax error");
+            System.out.println("Uri exception");
         } catch(IOException e) {
-            System.out.println("Ioexception");
+            System.out.println("IOException");
         }
         catch(InterruptedException e) {
-            System.out.println("Interrupted");
+            System.out.println("InterruptedException");
+
         }
         return null;
     }
