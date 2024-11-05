@@ -20,7 +20,6 @@ import java.nio.charset.StandardCharsets;
 public class WeatherClient {
     private static final String WEATHER_URL = "http://api.openweathermap.org/data/2.5";
 
-
     public OpenWeatherDto getWeatherForCity( String city,String country) throws CityNotFound{
         HttpClient client = HttpClient.newHttpClient();
         Gson gson = new Gson();
