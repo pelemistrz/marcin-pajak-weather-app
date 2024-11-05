@@ -10,37 +10,45 @@ import java.io.IOException;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 
 public class WeatherClient {
     private static final String WEATHER_URL = "http://api.openweathermap.org/data/2.5";
     public static final String API_KEY = "4af1c105dcf10a54eab54afc6edd20eb";
 
 
-    public OpenWeatherDto getWeatherForCity( String city,String country){
+    public OpenWeatherDto getWeatherForCity( String city,String country) throws CityNotFound{
         HttpClient client = HttpClient.newHttpClient();
         Gson gson = new Gson();
        OpenWeatherDto openWeatherDto=null;
 
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI("http://api.openweathermap.org/data/2.5/weather?q="+city+","+country+"&appid="+API_KEY+"&units=metric&lang=pl"))
+                    .uri(new URI("http://api.openweathermap.org/data/2.5/weather?q="+URLEncoder.encode(city, StandardCharsets.UTF_8)+","+country+"&appid="+API_KEY+"&units=metric&lang=pl"))
                     .GET()
                     .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.body());
-           openWeatherDto = gson.fromJson(response.body(),OpenWeatherDto.class);
-            return openWeatherDto;
+
+            if(response.statusCode()==404){
+                throw new CityNotFound("City not found");
+
+            } else {
+                openWeatherDto = gson.fromJson(response.body(),OpenWeatherDto.class);
+                return openWeatherDto;
+
+            }
 
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            System.out.println("uri");
         } catch(IOException e) {
-            e.printStackTrace();
+            System.out.println("ioexceptio");
         }
         catch(InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("interrupted");
         }
         return null;
     }
@@ -49,30 +57,37 @@ public class WeatherClient {
         HttpClient client = HttpClient.newHttpClient();
         Gson gson = new Gson();
         OpenWeatherForecastDto openWeatherForecastDto=null;
+        System.out.println(city);
 
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI("http://api.openweathermap.org/data/2.5/forecast?q="+city+","+country+"&appid="+API_KEY+"&units=metric&lang=pl"))
+                    .uri(new URI("http://api.openweathermap.org/data/2.5/forecast?q="+ URLEncoder.encode(city, StandardCharsets.UTF_8)+","+country+"&appid="+API_KEY+"&units=metric&lang=pl"))
                     .GET()
                     .build();
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if(response.body().contains("city not found")){
-                throw new CityNotFound("City not found");
-            }
-            System.out.println(response.headers());
 
-            openWeatherForecastDto = gson.fromJson(response.body(),OpenWeatherForecastDto.class);
-            System.out.println(openWeatherForecastDto.toString());
-            System.out.println(openWeatherForecastDto.getList().size());
-            return openWeatherForecastDto;
+            System.out.println(request.uri());
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+
+
+
+            if(response.statusCode()==404){
+                throw new CityNotFound("City not found");
+
+            } else{
+                openWeatherForecastDto = gson.fromJson(response.body(),OpenWeatherForecastDto.class);
+
+                return openWeatherForecastDto;
+            }
 
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            System.out.println("Uri syntax error");
         } catch(IOException e) {
-            e.printStackTrace();
+            System.out.println("Ioexception");
         }
         catch(InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("Interrupted");
         }
         return null;
     }

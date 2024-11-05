@@ -92,6 +92,12 @@ public class MainWindowController extends BaseController implements Initializabl
     private Label destinationForecastTemp3;
     @FXML
     private Label destinationForecastTemp4;
+    //error Label
+    @FXML
+    private Label errorDestinationCity;
+    @FXML
+    private Label errorLocalCity;
+
 
     public MainWindowController(ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
@@ -100,58 +106,122 @@ public class MainWindowController extends BaseController implements Initializabl
 
     @FXML
     void checkBtn() {
-        ObservableMap<String,String> countriesMap = LoadCsv.INSTANCE.getCountriesMap();
+        ObservableMap<String, String> countriesMap = LoadCsv.INSTANCE.getCountriesMap();
 
-        String destinationCity = this.destinationCity.getText();
-        String localCity =this.localCity.getText();
+        String destCity = this.destinationCity.getText();
+        String locCity = this.localCity.getText();
+
+        System.out.println(destCity);
+        System.out.println(locCity);
 
         String localCountry = countriesMap.get(choiceBoxLocalCountry.getValue());
         String destinationCountry = countriesMap.get(choiceBoxDestinationCountry.getValue());
 
-        WeatherInfo weatherInfoLocal = weatherService.getTodayWeather(localCity , localCountry);
-        WeatherInfo weatherInfoDestination = weatherService.getTodayWeather(destinationCity,destinationCountry);
+        errorLocalCity.setText("");
+        errorDestinationCity.setText("");
 
-        localTodayDescription.setText(weatherInfoLocal.getDescription());
-        localTodayTemperature.setText(weatherInfoLocal.getTemperature() + " C");
-        destinationTodayTemperature.setText(weatherInfoDestination.getTemperature() + " C");
-        destinationTodayDescription.setText(weatherInfoDestination.getDescription());
+        WeatherInfo weatherInfoLocal = null;
+        try {
+            weatherInfoLocal = weatherService.getTodayWeather(locCity, localCountry);
+        } catch (CityNotFound e) {
+            System.out.println("city not found");
+            errorLocalCity.setText("City not found");
+        }
+        WeatherInfo weatherInfoDestination = null;
+        try {
+            weatherInfoDestination = weatherService.getTodayWeather(destCity, destinationCountry);
+        } catch (CityNotFound e) {
+            System.out.println("city not found");
+            errorDestinationCity.setText("City not found");
+        }
+
+        if(weatherInfoLocal==null){
+            localTodayDescription.setText("");
+            localTodayTemperature.setText("");
+
+        }else{
+            localTodayDescription.setText(weatherInfoLocal.getDescription());
+            localTodayTemperature.setText(weatherInfoLocal.getTemperature() + " C");
+
+        }
+        if(weatherInfoDestination==null){
+            destinationTodayTemperature.setText("");
+            destinationTodayDescription.setText("");
+        } else {
+            destinationTodayTemperature.setText(weatherInfoDestination.getTemperature() + " C");
+            destinationTodayDescription.setText(weatherInfoDestination.getDescription());
+        }
 
         ForecastInfo forecastInfoLocal = null;
+
         try {
-            forecastInfoLocal = weatherService.getForecast(localCity,localCountry);
+            forecastInfoLocal = weatherService.getForecast(locCity, localCountry);
         } catch (CityNotFound e) {
-           e.printStackTrace();
+            System.out.println("city not found");
+
+            errorLocalCity.setText("City not found");
 
         }
 
         ForecastInfo forecastInfoDestination = null;
         try {
-            forecastInfoDestination = weatherService.getForecast(destinationCity,destinationCountry);
+            forecastInfoDestination = weatherService.getForecast(destCity, destinationCountry);
         } catch (CityNotFound e) {
-            e.printStackTrace();
-        }
-        //local forecast temp
-        localForecastTemp1.setText(forecastInfoLocal.getForecastList().get(0).getTemperature()+" C");
-        localForecastTemp2.setText(forecastInfoLocal.getForecastList().get(1).getTemperature()+" C");
-        localForecastTemp3.setText(forecastInfoLocal.getForecastList().get(2).getTemperature()+" C");
-        localForecastTemp4.setText(forecastInfoLocal.getForecastList().get(3).getTemperature()+" C");
-        //local forecast description
-        localForecastDesc1.setText(forecastInfoLocal.getForecastList().get(0).getDescription());
-        localForecastDesc2.setText(forecastInfoLocal.getForecastList().get(1).getDescription());
-        localForecastDesc3.setText(forecastInfoLocal.getForecastList().get(2).getDescription());
-        localForecastDesc4.setText(forecastInfoLocal.getForecastList().get(3).getDescription());
-        //destination forecast temp
-        destinationForecastTemp1.setText(forecastInfoDestination.getForecastList().get(0).getTemperature()+" C");
-        destinationForecastTemp2.setText(forecastInfoDestination.getForecastList().get(1).getTemperature()+" C");
-        destinationForecastTemp3.setText(forecastInfoDestination.getForecastList().get(2).getTemperature()+" C");
-        destinationForecastTemp4.setText(forecastInfoDestination.getForecastList().get(3).getTemperature()+" C");
-        //destination forecast temp
-        destinationForecastDesc1.setText(forecastInfoDestination.getForecastList().get(0).getDescription());
-        destinationForecastDesc2.setText(forecastInfoDestination.getForecastList().get(1).getDescription());
-        destinationForecastDesc3.setText(forecastInfoDestination.getForecastList().get(2).getDescription());
-        destinationForecastDesc4.setText(forecastInfoDestination.getForecastList().get(3).getDescription());
-    }
+            System.out.println("city not found");
 
+            errorDestinationCity.setText("City not found");
+        }
+        if (forecastInfoLocal == null) {
+            localForecastTemp1.setText("");
+            localForecastTemp2.setText("");
+            localForecastTemp3.setText("");
+            localForecastTemp4.setText("");
+            //local forecast description
+            localForecastDesc1.setText("");
+            localForecastDesc2.setText("");
+            localForecastDesc3.setText("");
+            localForecastDesc4.setText("");
+
+
+        } else {
+            localForecastTemp1.setText(forecastInfoLocal.getForecastList().get(0).getTemperature() + " C");
+            localForecastTemp2.setText(forecastInfoLocal.getForecastList().get(1).getTemperature() + " C");
+            localForecastTemp3.setText(forecastInfoLocal.getForecastList().get(2).getTemperature() + " C");
+            localForecastTemp4.setText(forecastInfoLocal.getForecastList().get(3).getTemperature() + " C");
+            //local forecast description
+            localForecastDesc1.setText(forecastInfoLocal.getForecastList().get(0).getDescription());
+            localForecastDesc2.setText(forecastInfoLocal.getForecastList().get(1).getDescription());
+            localForecastDesc3.setText(forecastInfoLocal.getForecastList().get(2).getDescription());
+            localForecastDesc4.setText(forecastInfoLocal.getForecastList().get(3).getDescription());
+            //destination forecast temp
+        }
+
+        if(forecastInfoDestination==null){
+            destinationForecastTemp1.setText("");
+            destinationForecastTemp2.setText("");
+            destinationForecastTemp3.setText("");
+            destinationForecastTemp4.setText("");
+            //destination forecast temp
+            destinationForecastDesc1.setText("");
+            destinationForecastDesc2.setText("");
+            destinationForecastDesc3.setText("");
+            destinationForecastDesc4.setText("");
+
+        }else {
+            destinationForecastTemp1.setText(forecastInfoDestination.getForecastList().get(0).getTemperature() + " C");
+            destinationForecastTemp2.setText(forecastInfoDestination.getForecastList().get(1).getTemperature() + " C");
+            destinationForecastTemp3.setText(forecastInfoDestination.getForecastList().get(2).getTemperature() + " C");
+            destinationForecastTemp4.setText(forecastInfoDestination.getForecastList().get(3).getTemperature() + " C");
+            //destination forecast temp
+            destinationForecastDesc1.setText(forecastInfoDestination.getForecastList().get(0).getDescription());
+            destinationForecastDesc2.setText(forecastInfoDestination.getForecastList().get(1).getDescription());
+            destinationForecastDesc3.setText(forecastInfoDestination.getForecastList().get(2).getDescription());
+            destinationForecastDesc4.setText(forecastInfoDestination.getForecastList().get(3).getDescription());
+        }
+
+
+
+    }
 
 
     @Override

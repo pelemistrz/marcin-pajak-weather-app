@@ -13,10 +13,13 @@ public class WeatherService extends Service {
 
     private final WeatherClient weatherClient = new WeatherClient();
 
-    public WeatherInfo getTodayWeather(String city,String country){
+    public WeatherInfo getTodayWeather(String city,String country) throws CityNotFound {
+
+
+
         OpenWeatherDto openWeatherDto = weatherClient.getWeatherForCity(city,country);
         if(openWeatherDto == null){
-            return null;
+            throw new CityNotFound("City not found");
         }
         return new WeatherInfo.WeatherInfoBuilder()
                 .temperature(openWeatherDto.getMain().getTemp())
@@ -27,6 +30,11 @@ public class WeatherService extends Service {
 
     public ForecastInfo getForecast(String city,String country) throws CityNotFound {
         OpenWeatherForecastDto openWeatherForecastDto = weatherClient.getForecastForCity(city,country);
+
+
+        if(openWeatherForecastDto==null){
+            throw new CityNotFound("City not found");
+        }
 
         ForecastInfo forecastInfo = new ForecastInfo();
 

@@ -62,5 +62,7 @@
       <Label fx:id="todayPlu2" layoutX="58.0" layoutY="340.0" text="today" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="340.0" />
       <Label fx:id="todayPlus3" layoutX="58.0" layoutY="391.0" text="today" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="390.0" />
       <Label fx:id="todayPlus4" layoutX="58.0" layoutY="451.0" text="today" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="440.0" />
+      <Label fx:id="errorLocalCity" layoutX="238.0" layoutY="193.0" AnchorPane.leftAnchor="238.0" />
+      <Label fx:id="errorDestinationCity" layoutX="489.0" layoutY="193.0" />
     </children>
 </AnchorPane>
