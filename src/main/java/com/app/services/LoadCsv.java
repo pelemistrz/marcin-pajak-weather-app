@@ -36,6 +36,4 @@ public enum LoadCsv {
     public ObservableMap<String,String> getCountriesMap() {
         return countriesMap;
     }
-
-
 }

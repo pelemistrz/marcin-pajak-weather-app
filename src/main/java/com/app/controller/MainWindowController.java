@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,7 +24,7 @@ import java.util.*;
 public class MainWindowController extends BaseController implements Initializable {
     private final WeatherService weatherService;
 
-    private ObservableList<String> countriesList = FXCollections.observableArrayList();
+    private final ObservableList<String> countriesList = FXCollections.observableArrayList();
     @FXML
     private TextField destinationCity;
     @FXML
@@ -96,11 +97,11 @@ public class MainWindowController extends BaseController implements Initializabl
     @FXML
     private Label errorLocalCity;
 
-    private Label[] localForecastaLabelsTemp = {localForecastTemp1, localForecastTemp2, localForecastTemp3, localForecastTemp4};
-    private Label[] localForecastaLabelsDesc = {localForecastDesc1, localForecastDesc2, localForecastDesc3, localForecastDesc4};
+    private Label[] localForecastLabelsTemp;
+    private Label[] localForecastLabelsDesc;
 
-    private Label[] destinationForecastLabelTemp = {destinationForecastTemp1, destinationForecastTemp2, destinationForecastTemp3, destinationForecastTemp4};
-    private Label[] destinationForecastLabelDescrip = {destinationForecastDesc1, destinationForecastDesc2, destinationForecastDesc3, destinationForecastDesc4};
+    private Label[] destinationForecastLabelTemp;
+    private Label[] destinationForecastLabelDescrip;
 
     public MainWindowController(ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
@@ -139,8 +140,10 @@ public class MainWindowController extends BaseController implements Initializabl
             localTodayDescription.setText("");
             localTodayTemperature.setText("");
         } else {
+            System.out.println(Arrays.toString(localForecastLabelsDesc));
             localTodayDescription.setText(weatherInfoLocal.getDescription());
             localTodayTemperature.setText(weatherInfoLocal.getTemperature() + " C");
+
         }
 
         if (weatherInfoDestination == null) {
@@ -167,11 +170,12 @@ public class MainWindowController extends BaseController implements Initializabl
         }
 
         if (forecastInfoLocal == null) {
-            setNothing(localForecastaLabelsTemp);
-            setNothing(localForecastaLabelsDesc);
+            setNothing(localForecastLabelsTemp);
+            setNothing(localForecastLabelsDesc);
         } else {
-            setTempOnLabel(localForecastaLabelsTemp, forecastInfoLocal);
-            setDescriptionOnLabel(localForecastaLabelsDesc, forecastInfoLocal);
+
+            setTempOnLabel(localForecastLabelsTemp, forecastInfoLocal);
+            setDescriptionOnLabel(localForecastLabelsDesc, forecastInfoLocal);
         }
 
         if (forecastInfoDestination == null) {
@@ -220,5 +224,11 @@ public class MainWindowController extends BaseController implements Initializabl
         todayPlu2.setText(date.plusDays(2).format(formatter));
         todayPlus3.setText(date.plusDays(3).format(formatter));
         todayPlus4.setText(date.plusDays(4).format(formatter));
+
+       localForecastLabelsTemp = new Label[]{localForecastTemp1, localForecastTemp2, localForecastTemp3, localForecastTemp4};
+         localForecastLabelsDesc = new Label[]{localForecastDesc1, localForecastDesc2, localForecastDesc3, localForecastDesc4};
+
+        destinationForecastLabelTemp = new Label[]{destinationForecastTemp1, destinationForecastTemp2, destinationForecastTemp3, destinationForecastTemp4};
+   destinationForecastLabelDescrip = new Label[]{destinationForecastDesc1, destinationForecastDesc2, destinationForecastDesc3, destinationForecastDesc4};
     }
 }
