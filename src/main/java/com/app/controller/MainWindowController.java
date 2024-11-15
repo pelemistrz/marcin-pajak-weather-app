@@ -6,6 +6,7 @@ import com.app.model.WeatherInfo;
 import com.app.services.LoadCsv;
 import com.app.services.WeatherService;
 import com.app.view.ViewFactory;
+import com.app.webclient.weather.WeatherClient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -105,7 +106,7 @@ public class MainWindowController extends BaseController implements Initializabl
 
     public MainWindowController(ViewFactory viewFactory, String fxmlName) {
         super(viewFactory, fxmlName);
-        this.weatherService = new WeatherService();
+        this.weatherService = new WeatherService(new WeatherClient());
     }
 
     @FXML
@@ -225,10 +226,9 @@ public class MainWindowController extends BaseController implements Initializabl
         todayPlus3.setText(date.plusDays(3).format(formatter));
         todayPlus4.setText(date.plusDays(4).format(formatter));
 
-       localForecastLabelsTemp = new Label[]{localForecastTemp1, localForecastTemp2, localForecastTemp3, localForecastTemp4};
-         localForecastLabelsDesc = new Label[]{localForecastDesc1, localForecastDesc2, localForecastDesc3, localForecastDesc4};
-
+        localForecastLabelsTemp = new Label[]{localForecastTemp1, localForecastTemp2, localForecastTemp3, localForecastTemp4};
+        localForecastLabelsDesc = new Label[]{localForecastDesc1, localForecastDesc2, localForecastDesc3, localForecastDesc4};
         destinationForecastLabelTemp = new Label[]{destinationForecastTemp1, destinationForecastTemp2, destinationForecastTemp3, destinationForecastTemp4};
-   destinationForecastLabelDescrip = new Label[]{destinationForecastDesc1, destinationForecastDesc2, destinationForecastDesc3, destinationForecastDesc4};
+        destinationForecastLabelDescrip = new Label[]{destinationForecastDesc1, destinationForecastDesc2, destinationForecastDesc3, destinationForecastDesc4};
     }
 }

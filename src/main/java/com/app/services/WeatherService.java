@@ -11,10 +11,16 @@ import javafx.concurrent.Task;
 
 public class WeatherService extends Service {
 
-    private final WeatherClient weatherClient = new WeatherClient();
-    public WeatherInfo getTodayWeather(String city,String country) throws CityNotFound {
+    private final WeatherClient weatherClient ;
+
+    public WeatherService(WeatherClient weatherClient) {
+        this.weatherClient = weatherClient;
+    }
+
+    public WeatherInfo getTodayWeather(String city, String country) throws CityNotFound {
 
         OpenWeatherDto openWeatherDto = weatherClient.getWeatherForCity(city,country);
+
         if(openWeatherDto == null){
             throw new CityNotFound("City not found");
         }

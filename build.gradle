@@ -12,12 +12,16 @@ repositories {
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation group: 'com.google.code.gson', name: 'gson', version: '2.11.0'
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
 
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.2'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.2'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.10.2'
+    testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '5.14.2'
 }
 
 test {

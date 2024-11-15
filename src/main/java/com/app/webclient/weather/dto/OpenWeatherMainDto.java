@@ -3,6 +3,10 @@ package com.app.webclient.weather.dto;
 public class OpenWeatherMainDto {
     private double temp;
 
+    public OpenWeatherMainDto(double temp) {
+        this.temp = temp;
+    }
+
     public double getTemp() {
         return temp;
     }
