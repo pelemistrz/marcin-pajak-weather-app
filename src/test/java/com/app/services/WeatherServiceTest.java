@@ -41,7 +41,7 @@ class WeatherServiceTest {
     void getForecastShouldThrowCityNotFoundExceptionWhenThereIsNoCorrectCity() throws CityNotFound {
         //given
         WeatherService weatherService = new WeatherService(weatherClient);
-        when(weatherClient.getForecastForCity("Abrakadabra", "PL")).thenThrow(new CityNotFound("City not found"));
+
         //when & then
         assertThrows(CityNotFound.class,()-> weatherService.getTodayWeather("Abrakadabra","PL"));
     }
